@@ -1,36 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
+import 'dart:math';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
-
-class ViewParallax extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(1),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipOval(
-                child: Container(
-                  height: mediaQuery.size.width,
-                  width: mediaQuery.size.width,
-                  color: Colors.blue,
-                  child: Parallax(mediaQuery),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 const int _yAmount = 10;
 const int _xAmount = 10;
@@ -74,7 +46,7 @@ class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin
       sensorId: Sensors.ACCELEROMETER,
       interval: Sensors.SENSOR_DELAY_GAME,
     );
-    _subsc = streamAcc.listen((SensorEvent event) {
+   _subsc= streamAcc.listen((SensorEvent event) {
       if (event == null) return;
       yAccStore.removeFirst();
       yAccStore.add(event.data[1]);
@@ -147,10 +119,9 @@ class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin
           )),
     ]);
   }
-
   @override
   void dispose() {
-    _subsc?.cancel();
+    streamAcc.c
     super.dispose();
   }
 }

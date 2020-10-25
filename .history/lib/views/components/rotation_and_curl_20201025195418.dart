@@ -1,38 +1,9 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-
-class ViewRotation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(0),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipOval(
-                child: Container(
-                  height: mediaQuery.size.width,
-                  width: mediaQuery.size.width,
-                  color: Colors.blue,
-                  child: RotationAndCurl(),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 const int _xAmount = 10;
 const int _zAmount = 10;

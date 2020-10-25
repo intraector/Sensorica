@@ -1,4 +1,4 @@
-import 'package:Sensorica/views/components/rotation_and_curl.dart';
+import 'package:Sensorica/views/components/parallax.dart';
 import 'package:flutter/material.dart';
 
 class ViewNineth extends StatelessWidget {
@@ -6,7 +6,7 @@ class ViewNineth extends StatelessWidget {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Sensorica')),
+      appBar: AppBar(title: Text('Nineth')),
       body: Column(
         children: [
           Row(
@@ -17,7 +17,7 @@ class ViewNineth extends StatelessWidget {
                   height: mediaQuery.size.width,
                   width: mediaQuery.size.width,
                   color: Colors.blue,
-                  child: RotationAndCurl(),
+                  child: Parallax(mediaQuery),
                 ),
               ),
             ],

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
@@ -12,7 +11,6 @@ class ViewRotation extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(0),
       body: Column(
         children: [
           Row(

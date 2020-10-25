@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,6 @@ class ViewParallax extends StatelessWidget {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(1),
       body: Column(
         children: [
           Row(

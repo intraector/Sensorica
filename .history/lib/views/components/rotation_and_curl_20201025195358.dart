@@ -1,38 +1,8 @@
-import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-
-class ViewRotation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(0),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipOval(
-                child: Container(
-                  height: mediaQuery.size.width,
-                  width: mediaQuery.size.width,
-                  color: Colors.blue,
-                  child: RotationAndCurl(),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 const int _xAmount = 10;
 const int _zAmount = 10;
@@ -44,7 +14,6 @@ class RotationAndCurl extends StatefulWidget {
 }
 
 class _RotationAndCurlState extends State<RotationAndCurl> with SingleTickerProviderStateMixin {
-  StreamSubscription<SensorEvent> _subsc;
   var matrix = Matrix4.identity();
   var xAccStore = ListQueue<double>()..addAll(List.generate(_xAmount, (index) => 0.0));
   var zAccStore = ListQueue<double>()..addAll(List.generate(_zAmount, (index) => 0.0));
@@ -63,7 +32,7 @@ class _RotationAndCurlState extends State<RotationAndCurl> with SingleTickerProv
       sensorId: Sensors.ACCELEROMETER,
       interval: Sensors.SENSOR_DELAY_GAME,
     );
-    _subsc = streamAcc.listen((SensorEvent event) {
+    streamAcc.listen((SensorEvent event) {
       if (event == null) return;
       xAccStore.removeFirst();
       xAccStore.add(event.data[0]);

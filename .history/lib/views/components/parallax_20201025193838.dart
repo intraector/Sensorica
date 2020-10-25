@@ -1,36 +1,7 @@
-import 'dart:async';
 import 'dart:collection';
-import 'package:Sensorica/bottom_tab_bar_material.dart';
+import 'dart:math';
 import 'package:flutter_sensors/flutter_sensors.dart';
 import 'package:flutter/material.dart';
-
-class ViewParallax extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(title: Text('Sensorica')),
-      bottomNavigationBar: BottomTabBarMaterial(1),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipOval(
-                child: Container(
-                  height: mediaQuery.size.width,
-                  width: mediaQuery.size.width,
-                  color: Colors.blue,
-                  child: Parallax(mediaQuery),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 const int _yAmount = 10;
 const int _xAmount = 10;
@@ -45,7 +16,6 @@ class Parallax extends StatefulWidget {
 }
 
 class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin {
-  StreamSubscription<SensorEvent> _subsc;
   double slideAmount2 = 0.0;
   var scale2 = 0.8;
   var slideOffset2 = Offset.zero;
@@ -70,16 +40,17 @@ class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin
 
 //-------------------------------------
   Future<void> listen() async {
-    var streamAcc = await SensorManager().sensorUpdates(
+    final streamAcc = await SensorManager().sensorUpdates(
       sensorId: Sensors.ACCELEROMETER,
       interval: Sensors.SENSOR_DELAY_GAME,
     );
-    _subsc = streamAcc.listen((SensorEvent event) {
+    streamAcc.listen((SensorEvent event) {
       if (event == null) return;
       yAccStore.removeFirst();
-      yAccStore.add(event.data[1]);
+      yAccStore.add(event.data[2]);
+      // print('EVENT.DATA[1]: ${event.data[2]}');
       xAccStore.removeFirst();
-      xAccStore.add(event.data[0]);
+      xAccStore.add(event.data[1]);
       setState(() {
         slideOffset2 = slide(slideAmount2);
         slideOffset3 = slide(slideAmount3);
@@ -94,6 +65,7 @@ class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin
         (yAccStore.reduce((first, next) => first + next) / _yAmount / 10).clamp(-10.0, 10.0);
     var xOffset =
         (xAccStore.reduce((first, next) => first + next) / _xAmount / 10).clamp(-10.0, 10.0);
+    print('---------- xOffset : $xOffset');
     return Offset(xOffset * slideAmount, (((yOffset) * slideAmount)));
   }
 
@@ -146,11 +118,5 @@ class _ParallaxState extends State<Parallax> with SingleTickerProviderStateMixin
             ),
           )),
     ]);
-  }
-
-  @override
-  void dispose() {
-    _subsc?.cancel();
-    super.dispose();
   }
 }

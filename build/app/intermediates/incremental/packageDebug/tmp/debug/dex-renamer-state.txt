@@ -1,4 +1,0 @@
-#Sun Oct 25 13:50:15 MSK 2020
-base.0=/Volumes/intraector/dev/apps/Sensorica/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
